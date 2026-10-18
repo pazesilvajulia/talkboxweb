@@ -335,7 +335,7 @@ form.addEventListener("submit", async (e) => {
    [container, itens dentro dele (ou null = o próprio container), efeito]
    Efeitos: "up" (padrão), "left", "right", "zoom". */
 const revealGroups = [
-  [".hero-copy", "h1, .lead, .hero-actions", "up"],
+  [".hero-copy", ".hero-kicker, h1, .lead, .hero-actions, .hero-note", "up"],
   [".chat", null, "zoom"],
   [".section h2", null, "up"],
   [".section-lead", null, "up"],

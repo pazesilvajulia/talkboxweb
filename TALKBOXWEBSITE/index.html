@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito+Sans:opsz,wght@6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -65,14 +65,29 @@
 
     <!-- ============ HERO ============ -->
     <section class="hero">
+      <!-- Balões decorativos (só no celular/tablet) -->
+      <span class="hero-glow" aria-hidden="true"></span>
       <div class="container hero-grid">
+        <div class="hero-deco hero-deco-top" aria-hidden="true">
+          <span class="fb fb-1">Hello!</span>
+          <span class="fb fb-2 is-orange">Let’s talk?</span>
+          <span class="fb fb-3">How’s it going?</span>
+        </div>
+
         <div class="hero-copy">
-          <h1>Inglês que faz sentido para você.</h1>
+          <p class="hero-kicker"><b class="hero-kicker-dot"></b>Aulas ao vivo · 100% online</p>
+          <h1>Inglês que faz sentido para <span class="hl">você.</span></h1>
           <p class="lead">Aprenda com aulas pensadas para os seus objetivos, com orientação próxima em cada etapa da sua jornada.</p>
           <div class="hero-actions">
             <a href="https://wa.me/5547989174783?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20as%20aulas%20de%20ingl%C3%AAs%20da%20TalkBox!" class="btn btn-orange" target="_blank" rel="noopener">Quero começar</a>
             <a href="#modalidades" class="btn btn-ghost-light">Ver modalidades</a>
           </div>
+          <p class="hero-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Aula experimental <strong>gratuita</strong> de 30 min</span></p>
+        </div>
+
+        <div class="hero-deco hero-deco-bottom" aria-hidden="true">
+          <span class="fb fb-4">Nice to meet you!</span>
+          <span class="fb fb-5 is-orange">I can do it!</span>
         </div>
 
         <!-- Conversa animada (o JS revela uma bolha por vez) -->
@@ -90,6 +105,7 @@
           </ol>
         </div>
       </div>
+      <a href="#sobre" class="hero-scroll" aria-label="Rolar para conhecer a TalkBox"><span>Conheça a TalkBox</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </section>
 
 
@@ -205,7 +221,12 @@
             </li>
           </ol>
         </div>
+      </div>
+    </section>
 
+    <!-- ============ OBJETIVOS ============ -->
+    <section class="section section-mint" id="objetivos">
+      <div class="container">
         <h3 class="tracks-title">Escolha seu objetivo</h3>
         <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
           <defs>
@@ -714,6 +735,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>

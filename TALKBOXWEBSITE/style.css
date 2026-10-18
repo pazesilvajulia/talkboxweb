@@ -1663,3 +1663,428 @@ p { margin: 0; }
   .contact-grid { grid-template-columns: minmax(0, 1fr); }
   .book-btn, .book-wa { white-space: normal; }
 }
+
+/* =========================================================
+   CELULAR E TABLET: cada seção ocupa (pelo menos) uma tela
+   inteira abaixo do header fixo. O conteúdo fica centralizado
+   na vertical e as seções longas foram compactadas para ficar
+   o mais perto possível de uma tela.
+   - Início usa svh (altura com a barra do navegador aberta),
+     para os botões aparecerem sem rolar.
+   - As demais usam lvh (barra recolhida), assim nunca sobra
+     uma faixa da próxima seção quando a barra some.
+   ========================================================= */
+@media (max-width: 900px) {
+  :root {
+    --screen-s: calc(100vh - var(--header-h));
+    --screen-l: calc(100vh - var(--header-h));
+  }
+  @supports (height: 100svh) {
+    :root {
+      --screen-s: calc(100svh - var(--header-h));
+      --screen-l: calc(100lvh - var(--header-h));
+    }
+  }
+
+  main > section { min-height: var(--screen-l); }
+  main > .hero { min-height: var(--screen-s); }
+
+  main > .section {
+    display: flex; flex-direction: column; justify-content: center;
+    padding-block: clamp(2rem, 5vh, 3rem);
+  }
+  main > .section > .container { width: 100%; }
+
+  /* Duas seções seguidas com o mesmo fundo ganham um divisor sutil */
+  #objetivos { position: relative; }
+  #objetivos::before {
+    content: ""; position: absolute; top: 0; left: 50%; translate: -50% 0;
+    width: min(70%, 320px); height: 2px; border-radius: 2px;
+    background: repeating-linear-gradient(90deg, rgba(2,69,58,.2) 0 10px, transparent 10px 18px);
+  }
+  .tracks-title { margin-top: 0; }
+
+  /* Professores lado a lado no tablet */
+  .profs { max-width: none; }
+}
+
+@media (min-width: 561px) and (max-width: 900px) {
+  .profs { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .plans { max-width: 560px; margin-inline: auto; }
+  .plans-switch { max-width: 560px; }
+}
+
+/* ---------- Ajustes de telefone ---------- */
+@media (max-width: 560px) {
+
+  /* --- Sobre --- */
+  #sobre h2 { font-size: clamp(1.75rem, 8.4vw, 2.2rem); }
+  .about-grid { gap: 1.5rem; }
+  .about-lead { margin-top: .85rem; font-size: .82rem; }
+  .about-lead::before { margin-bottom: .6rem; width: 40px; }
+  .call { width: min(100%, 300px); margin-top: 1.25rem; padding: .55rem; }
+  .call-bar { font-size: .7rem; padding-bottom: .5rem; }
+  .call-avatar { width: 42px; height: 42px; font-size: 1.1rem; }
+  .call-tile-you .call-avatar { width: 30px; height: 30px; font-size: .85rem; }
+  .call-caption { font-size: .72rem; padding: .35rem .65rem; }
+  .call-controls { padding-top: 1.25rem; gap: .4rem; }
+  .call-btn { width: 28px; height: 28px; }
+  .call-btn svg { width: 14px; height: 14px; }
+  .call-btn-end { width: 38px; }
+  .about-body p { font-size: .95rem; line-height: 1.55; }
+  .about-body p + p { margin-top: .7rem; }
+
+  /* Fatos viram uma lista enxuta: ícone à esquerda, texto à direita */
+  .facts { grid-template-columns: 1fr; gap: .5rem; margin-top: 1.25rem; }
+  .facts li {
+    display: grid; grid-template-columns: auto 1fr; column-gap: .8rem; align-items: center;
+    text-align: left; padding: .65rem .9rem;
+  }
+  .fact-icon { grid-row: span 2; width: 38px; height: 38px; margin: 0; border-radius: 10px; }
+  .fact-icon svg { width: 19px; height: 19px; }
+  .facts strong { margin-top: 0; font-size: .98rem; overflow-wrap: normal; hyphens: manual; }
+  .facts span:not(.fact-icon) { margin-top: .1rem; font-size: .84rem; }
+
+  /* --- Como funciona: timeline compacta --- */
+  #metodologia h2 { font-size: clamp(1.9rem, 9vw, 2.4rem); }
+  #metodologia .section-lead { margin-top: .6rem; font-size: .95rem; line-height: 1.5; }
+  #metodologia .timeline { margin-top: 1.25rem; }
+  .tl-track { left: 19px; top: 22px; }
+  .steps { gap: .65rem; }
+  .step { gap: .8rem; }
+  .step-node { width: 44px; height: 44px; border-radius: 14px; }
+  .step-node::after { border-radius: 18px; }
+  .step-node svg { width: 19px; height: 19px; }
+  .step-card { padding: .75rem .9rem .8rem; border-radius: 14px; }
+  .step-num { margin-bottom: .35rem; padding: .22rem .55rem; font-size: .62rem; }
+  .step h3 { font-size: 1.02rem; }
+  .step p { margin-top: .25rem; font-size: .86rem; line-height: 1.45; }
+
+  /* --- Escolha seu objetivo --- */
+  .tracks-title { font-size: clamp(1.7rem, 8vw, 2.2rem); }
+  .tracks { margin-top: 1.25rem; gap: .6rem; }
+  .tracks li { padding: .9rem .7rem 1.05rem; border-radius: var(--radius); }
+  .award-wrap { width: 58px; height: 72px; margin-bottom: .55rem; }
+  .tracks strong { font-size: .98rem; }
+  .tracks span { margin-top: .3rem; font-size: .82rem; line-height: 1.4; }
+  /* Troféu em destaque: ilustração à esquerda e texto à direita */
+  .tracks li.is-trophy {
+    display: grid; grid-template-columns: auto 1fr; column-gap: 1rem;
+    align-items: center; align-content: center; text-align: left;
+    padding: 1rem 1.1rem 1.15rem;
+  }
+  .tracks li.is-trophy .award-wrap { grid-row: span 2; width: 64px; height: 80px; margin: 0; }
+  .tracks li.is-trophy strong { font-size: 1.12rem; align-self: end; }
+  .tracks li.is-trophy span { align-self: start; }
+
+  /* --- Modalidades: cards horizontais e compactos --- */
+  #modalidades h2 { font-size: clamp(1.9rem, 9vw, 2.4rem); }
+  .plans-head { gap: .9rem; }
+  .plans-head .section-lead { margin-top: .45rem; font-size: .92rem; line-height: 1.5; }
+  .plans-switch { padding: 5px; }
+  .plans-switch button { padding-block: .72rem; font-size: 1rem; }
+  .plans-switch-thumb { top: 5px; bottom: 5px; left: 5px; width: calc(50% - 5px); }
+  .plans-panel { padding-top: .25rem; }
+  .plans-intro { margin-top: .9rem; padding: .7rem .95rem; gap: .3rem; border-left-width: 4px; }
+  .plans-kicker { font-size: .7rem; }
+  .plans-intro-text { flex-basis: 100%; font-size: .86rem; line-height: 1.45; }
+  .term-picker { margin-top: .75rem; }
+  .term-picker button { padding: .55rem .7rem; }
+
+  .plans-panel .plans { margin-top: 1.4rem; gap: 1.05rem; max-width: none; }
+  .plan {
+    display: grid; grid-template-columns: 1fr auto; column-gap: .75rem;
+    align-items: center;
+    padding: 1rem 1.1rem 1.05rem; border-radius: var(--radius);
+  }
+  .plan-featured::before { border-radius: calc(var(--radius) + 3px); }
+  .plan h3 { grid-column: 1; grid-row: 1; font-size: 1.3rem; }
+  .plan-freq { grid-column: 1; grid-row: 2; margin-top: .1rem; font-size: .9rem; }
+  .plan-note { grid-column: 1 / -1; grid-row: 3; margin: .45rem 0 0; font-size: .8rem; }
+  .plan .price { grid-column: 2; grid-row: 1 / span 2; margin: 0; align-self: center; text-align: right; font-size: 2.15rem; }
+  .plan .price span { font-size: 1rem; }
+  .plan .price small { display: block; margin: .2rem 0 0; font-size: .8rem; }
+  .plan .price-old { grid-column: 2; grid-row: 3; margin: .45rem 0 0; justify-self: end; font-size: .78rem; gap: .35rem; }
+  .plan .price-old + .price { margin-top: 0; }
+  .plan-off { font-size: .72rem; padding: .22rem .45rem; }
+  .plan ul { grid-column: 1 / -1; grid-row: 4; margin: .55rem 0 0; }
+  .plan li { font-size: .86rem; padding-left: 1.3rem; }
+  .plan li::before { width: 8px; height: 8px; }
+  .plan .btn { grid-column: 1 / -1; grid-row: 5; margin-top: .8rem; padding-block: .75rem; font-size: .95rem; }
+  .plan-badge { top: -11px; left: 1.1rem; font-size: .74rem; padding: .28rem .7rem; }
+
+  /* --- Depoimentos: cards maiores preenchendo a tela --- */
+  #depoimentos { position: relative; overflow: hidden; }
+  #depoimentos::before {
+    content: "“"; position: absolute; right: -.05em; top: -.12em;
+    font: 900 18rem/1 var(--font-display); color: rgba(255,255,255,.06);
+    pointer-events: none;
+  }
+  #depoimentos h2 { position: relative; font-size: clamp(2rem, 9.5vw, 2.6rem); max-width: 12ch; }
+  .reviews { margin-top: 1.75rem; }
+  .review { width: min(320px, 82vw); min-height: min(52vh, 380px); padding: 1.5rem 1.4rem; }
+  .review blockquote { font-size: 1.08rem; line-height: 1.55; }
+  .review blockquote::before {
+    content: "“"; display: block; height: .55em;
+    font: 900 3.4rem/1 var(--font-display); color: var(--orange);
+  }
+
+  /* --- Professores: cenas mais baixas --- */
+  #professores h2 { font-size: clamp(2rem, 9.5vw, 2.6rem); }
+  #professores .profs { margin-top: 1.25rem; gap: 1rem; }
+  .prof { border-radius: var(--radius); }
+  .prof-scene { aspect-ratio: 400 / 125; }
+  .prof-scene > svg { height: 100%; }
+  .prof-flag { top: .6rem; right: .6rem; font-size: .78rem; padding: .3rem .6rem .3rem .4rem; }
+  .prof-photo { width: 92px; height: 92px; border-width: 4px; }
+  .prof-photo-link { margin-top: -46px; }
+  .prof-ig { width: 28px; height: 28px; border-width: 2px; }
+  .prof-ig svg { width: 13px; height: 13px; }
+  .prof-name { margin-top: .55rem; font-size: 1.3rem; }
+  .route { margin-top: .65rem; width: min(100%, 260px); }
+  .route-pin { width: 36px; height: 36px; font-size: .78rem; }
+  .prof-tags { margin-top: .75rem; }
+  .prof-tags li { padding: .42rem .8rem; font-size: .8rem; }
+  .prof-body { padding: 0 1rem 1.15rem; }
+
+  /* --- Dúvidas --- */
+  #faq h2 { font-size: clamp(2rem, 9.5vw, 2.6rem); }
+  #faq .section-lead { margin-top: .6rem; font-size: .95rem; line-height: 1.5; }
+  .faq-grid { gap: 1.4rem; }
+  .faq { gap: .6rem; }
+
+  /* --- Vamos conversar: logo volta, ao lado do título --- */
+  .contact-grid { gap: 1.4rem; }
+  .contact-copy { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .contact-copy h2 { font-size: clamp(2.1rem, 10vw, 2.6rem); max-width: 7ch; line-height: 1; }
+  .contact-mark { display: block; width: 64px; margin: 0; flex: none; }
+  .book-card { padding: 1.4rem 1.15rem 1.5rem; border-radius: var(--radius); }
+  .book-title { margin-top: 1.2rem; font-size: 1.45rem; }
+  .book-btn { margin-top: 1rem; }
+  .book-alt { margin-top: 1.25rem; padding-top: 1.1rem; }
+}
+
+/* Celulares baixos (iPhone SE, Androids compactos): aperta um pouco mais */
+@media (max-width: 560px) and (max-height: 700px) {
+  main > .section { padding-block: 1.5rem; }
+  .call { width: min(100%, 260px); }
+  .step p { font-size: .82rem; }
+  .step-card { padding-block: .65rem .7rem; }
+  .award-wrap { width: 50px; height: 62px; }
+  .review { min-height: 0; }
+  .prof-scene { aspect-ratio: 400 / 105; }
+  .book-cal-days span { aspect-ratio: auto; height: 30px; }
+}
+
+/* Computador: a separação Metodologia / Objetivos fica idêntica a antes */
+@media (min-width: 901px) {
+  #metodologia { padding-bottom: 0; }
+  #objetivos { padding-top: clamp(3.5rem, 7vw, 5rem); }
+  #objetivos .tracks-title { margin-top: 0; }
+}
+
+/* Tablet: planos em 3 colunas */
+@media (min-width: 561px) and (max-width: 900px) {
+  .plans-panel .plans { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; gap: .9rem; }
+  .plans-switch { max-width: 420px; }
+  .plan { padding: 1.4rem 1.1rem; }
+  .plan .price { font-size: 2.2rem; }
+}
+
+/* Celulares baixos: a janela de videochamada (decorativa) sai do Sobre */
+@media (max-width: 560px) and (max-height: 700px) {
+  #sobre .call { display: none; }
+  .plans-intro-text { font-size: .82rem; }
+  .plans-head .section-lead { font-size: .88rem; }
+}
+@media (max-width: 400px) {
+  .book-btn { font-size: .95rem; padding-inline: 1rem; }
+}
+
+/* Celular e tablet: a primeira tela mostra só título, subtítulo e botões */
+@media (max-width: 900px) {
+  .hero .chat { display: none; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: clamp(2.6rem, 12vw, 4.25rem); max-width: 11ch; }
+  .lead { margin-top: 1.25rem; font-size: clamp(1.05rem, 4.6vw, 1.3rem); line-height: 1.55; }
+  .hero-actions { margin-top: 2rem; }
+}
+@media (max-width: 560px) {
+  .hero-actions .btn { padding-block: 1rem; font-size: clamp(.9rem, 4.1vw, 1rem); }
+}
+
+/* =========================================================
+   INÍCIO NO CELULAR: título forte, balões de conversa
+   flutuando e convite para rolar.
+   No computador nada disso aparece (fica como antes).
+   ========================================================= */
+.hero-glow, .hero-deco, .hero-kicker, .hero-note, .hero-scroll { display: none; }
+.hl { color: inherit; }
+
+@media (max-width: 900px) {
+  .hero {
+    position: relative; isolation: isolate;
+    align-items: stretch;
+    padding-block: .75rem 3.25rem;
+    background:
+      radial-gradient(120% 60% at 110% -5%, rgba(255,102,0,.32), transparent 55%),
+      radial-gradient(90% 55% at -20% 105%, rgba(16,140,112,.55), transparent 60%),
+      var(--green);
+  }
+  /* textura de pontinhos bem sutil */
+  .hero::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background-image: radial-gradient(rgba(255,255,255,.09) 1.2px, transparent 1.3px);
+    background-size: 22px 22px;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 38%, transparent 62%, #000 100%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 38%, transparent 62%, #000 100%);
+  }
+  /* brilho laranja que "respira" atrás do título */
+  .hero-glow {
+    display: block; position: absolute; z-index: -1;
+    width: 85vw; aspect-ratio: 1; left: 40%; top: 30%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,102,0,.22), transparent 65%);
+    filter: blur(10px);
+    animation: glow-breathe 7s ease-in-out infinite alternate;
+  }
+  @keyframes glow-breathe { from { translate: 0 0; scale: 1; } to { translate: -12% 8%; scale: 1.15; } }
+
+  .hero-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 0; align-items: stretch;
+  }
+  .hero-copy { grid-row: 2; }
+
+  /* Selo "Aulas ao vivo" */
+  .hero-kicker {
+    display: inline-flex; align-items: center; gap: .55rem;
+    padding: .45rem .9rem .45rem .75rem; border-radius: 999px;
+    background: rgba(255,255,255,.1);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+    font: 800 .8rem/1 var(--font-display); letter-spacing: .04em; text-transform: uppercase;
+    color: rgba(255,255,255,.92);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  }
+  .hero-kicker-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--orange);
+    animation: live-pulse 1.6s ease-out infinite;
+  }
+
+  /* Título grande, com "você." em laranja e rabisco desenhado */
+  .hero h1 {
+    margin-top: 1.1rem;
+    font-size: clamp(3rem, 14.2vw, 4.75rem);
+    line-height: .95; letter-spacing: -0.055em;
+    max-width: 10ch;
+  }
+  .hl { position: relative; display: inline-block; color: var(--orange); white-space: nowrap; }
+  .hl::after {
+    content: ""; position: absolute; left: -.04em; right: -.02em; bottom: -.16em; height: .26em;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 24' preserveAspectRatio='none'%3E%3Cpath d='M3 15C40 7 92 4 197 9M14 21c46-6 98-8 150-5' fill='none' stroke='%23FFB27F' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+    clip-path: inset(0 100% 0 0);
+    animation: scribble .9s cubic-bezier(.6,0,.3,1) .9s forwards;
+  }
+  @keyframes scribble { to { clip-path: inset(0 0 0 0); } }
+
+  .lead { margin-top: 1.35rem; font-size: clamp(1.05rem, 4.6vw, 1.25rem); line-height: 1.5; color: rgba(255,255,255,.82); }
+  .hero-actions { margin-top: 1.75rem; }
+  .hero-actions .btn-orange { box-shadow: 0 14px 28px -12px rgba(255,102,0,.8); }
+
+  .hero-note {
+    display: flex; align-items: center; gap: .5rem;
+    margin-top: 1rem;
+    font: 700 .88rem/1.3 var(--font-display); color: rgba(255,255,255,.72);
+  }
+  .hero-note strong { color: var(--white); font-weight: 900; }
+  .hero-note svg {
+    flex: none; width: 20px; height: 20px; padding: 3px; border-radius: 50%;
+    background: #1FAF5A; color: var(--white);
+  }
+
+  /* Balões de conversa flutuando */
+  .hero-deco { display: block; position: relative; container-type: size; min-height: 0; }
+  .fb {
+    position: absolute;
+    padding: .5rem .85rem;
+    border-radius: 16px;
+    font: 800 .88rem/1 var(--font-display); white-space: nowrap;
+    color: rgba(255,255,255,.88);
+    background: rgba(255,255,255,.1);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.16);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    animation:
+      fb-in .6s cubic-bezier(.3,1.6,.5,1) var(--d, 0s) backwards,
+      fb-float var(--t, 5s) ease-in-out calc(var(--d, 0s) + .6s) infinite alternate;
+  }
+  .fb::after { /* rabinho do balão, igual ao da logo */
+    content: ""; position: absolute; bottom: -6px; left: 12px;
+    width: 12px; height: 8px; background: inherit;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+  }
+  .fb.is-orange { background: var(--orange); color: var(--white); box-shadow: 0 12px 24px -12px rgba(255,102,0,.9); }
+  .fb.is-right { border-bottom-right-radius: 5px; }
+  @keyframes fb-in { from { opacity: 0; scale: .4; } }
+  @keyframes fb-float { from { translate: 0 0; } to { translate: var(--fx, 0) -8px; } }
+
+  .fb-1 { left: 0; top: 30%; --d: .2s; --t: 5s; rotate: -6deg; border-bottom-left-radius: 5px; }
+  .fb-2 { right: 2%; top: 14%; --d: .5s; --t: 6s; --fx: -4px; rotate: 5deg; border-bottom-right-radius: 5px; }
+  .fb-2::after { left: auto; right: 12px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+  .fb-3 { left: 30%; top: 62%; --d: .8s; --t: 7s; --fx: 5px; font-size: .78rem; opacity: .8; border-bottom-left-radius: 5px; }
+
+  .fb-4 { left: 3%; top: 24%; --d: 1.1s; --t: 6s; rotate: 4deg; font-size: .8rem; border-bottom-left-radius: 5px; }
+  .fb-5 { right: 0; top: 50%; --d: 1.3s; --t: 5.5s; --fx: -5px; rotate: -5deg; border-bottom-right-radius: 5px; }
+  .fb-5::after { left: auto; right: 12px; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+
+  /* Se faltar espaço, os balões saem para não encostar no texto */
+  @container (max-height: 120px) { .fb-3 { display: none; } .fb-1 { top: 45%; } .fb-2 { top: 5%; } }
+  @container (max-height: 120px) { .fb-4 { top: 8%; } .fb-5 { top: 40%; } }
+  @container (max-height: 78px)  { .fb { display: none; } }
+
+  /* Convite para rolar */
+  .hero-scroll {
+    display: flex; flex-direction: column; align-items: center; gap: .1rem;
+    position: absolute; left: 50%; bottom: .7rem; translate: -50% 0;
+    font: 800 .72rem/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase;
+    color: rgba(255,255,255,.6); text-decoration: none;
+  }
+  .hero-scroll svg { width: 22px; height: 22px; animation: nudge 1.6s ease-in-out infinite; }
+  @keyframes nudge { 0%, 100% { translate: 0 0; } 50% { translate: 0 5px; } }
+}
+
+@media (min-width: 561px) and (max-width: 900px) {
+  .hero h1 { font-size: clamp(4rem, 10vw, 5.5rem); }
+  .lead { max-width: 30ch; }
+  .fb { font-size: 1rem; padding: .6rem 1rem; }
+  .fb-1 { left: 4%; } .fb-2 { right: 8%; } .fb-5 { right: 6%; }
+}
+
+/* Telas baixas: tudo um pouco mais junto */
+@media (max-width: 560px) and (max-height: 700px) {
+  .hero { padding-block: .5rem 2.75rem; }
+  .hero h1 { margin-top: .8rem; font-size: clamp(2.6rem, 12.5vw, 3.4rem); }
+  .lead { margin-top: 1rem; font-size: 1rem; }
+  .hero-actions { margin-top: 1.3rem; }
+  .hero-note { margin-top: .8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fb, .hero-glow, .hero-scroll svg, .hero-kicker-dot { animation: none !important; }
+  .hl::after { animation: none; clip-path: none; }
+}
+
+/* Sem rabisco embaixo do "você." */
+.hl::after { content: none; display: none; }
+
+/* Vamos conversar (celular): título e logo mais para cima, com folga até o card */
+@media (max-width: 900px) {
+  #contato { justify-content: flex-start; padding-top: 1.25rem; }
+  #contato .contact-grid { gap: 2.25rem; }
+  #contato .contact-copy { position: relative; z-index: 2; align-items: flex-start; }
+  #contato .contact-copy h2 { line-height: .98; }
+  #contato .contact-mark { translate: 0 -6px; }
+  #contato .book-card { position: relative; z-index: 1; }
+  /* entra só com fade, sem deslizar por baixo do card */
+  #contato .contact-copy.reveal { transform: none; }
+}
